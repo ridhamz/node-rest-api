@@ -8,6 +8,7 @@ import http from "http";
 import url from "url";
 import { StringDecoder } from "string_decoder";
 import { type } from "os";
+import config from "./config";
 
 // the server should respond to all requests with a string
 const server = http.createServer((req, res) => {
@@ -69,7 +70,9 @@ const server = http.createServer((req, res) => {
 });
 
 // srtart the server, and have it listen on port 5000
-server.listen(5000, () => console.log("server is lestening on port 5000"));
+server.listen(config.port, () =>
+  console.log(`server is lestening on port ${config.port}`)
+);
 
 //handlers
 let handlers = {};
