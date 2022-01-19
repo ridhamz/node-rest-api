@@ -1,0 +1,17 @@
+{
+  "name": "node-rest-api",
+  "version": "1.0.0",
+  "description": "a node rest ap without any framework",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "node.js",
+    "rest",
+    "api"
+  ],
+  "author": "ridha mezrigui",
+  "license": "ISC"
+}
