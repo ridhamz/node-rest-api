@@ -30,4 +30,4 @@ const envToExport =
     ? environments[currentEnvironment]
     : environments["env"];
 
-module.exports = envToExport;
+export default envToExport;

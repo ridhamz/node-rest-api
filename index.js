@@ -8,7 +8,12 @@ import http from "http";
 import url from "url";
 import { StringDecoder } from "string_decoder";
 import { type } from "os";
-import config from "./config";
+import config from "./config.js";
+import _data from "./lib/data.js";
+
+// testing
+// @todo delete the file
+_data.create("test", "newFile", { foo: "bar" }, (err) => console.log(err));
 
 // the server should respond to all requests with a string
 const server = http.createServer((req, res) => {
@@ -77,10 +82,10 @@ server.listen(config.port, () =>
 //handlers
 let handlers = {};
 
-// sample handler
-handlers.sample = (data, callback) => {
+// ping handler
+handlers.ping = (data, callback) => {
   //todo
-  callback(400, { name: "sample handler" });
+  callback(200);
 };
 
 // not found handler
@@ -91,5 +96,5 @@ handlers.notFound = (data, callback) => {
 
 // define request router
 const router = {
-  sample: handlers.sample,
+  ping: handlers.sample,
 };
