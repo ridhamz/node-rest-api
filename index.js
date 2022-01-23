@@ -13,7 +13,7 @@ import _data from "./lib/data.js";
 
 // testing
 // @todo delete the file
-_data.create("test", "newFile", { foo: "bar" }, (err) => console.log(err));
+_data.create("", "newFile", { foo: "bar" }, (err) => console.log(err));
 
 // the server should respond to all requests with a string
 const server = http.createServer((req, res) => {
