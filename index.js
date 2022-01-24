@@ -8,16 +8,10 @@ import http from "http";
 import url from "url";
 import { StringDecoder } from "string_decoder";
 import { type } from "os";
-import config from "./config.js";
+import config from "./lib/config.js";
 import _data from "./lib/data.js";
-import handlers from "./lib/handler";
-
-// testing
-// @todo delete the file
-_data.delete("", "newFile", (err, data) => {
-  if (err) return console.log(err);
-  console.log(data);
-});
+import handlers from "./lib/handler.js";
+import helpers from "./lib/helpers.js";
 
 // the server should respond to all requests with a string
 const server = http.createServer((req, res) => {
@@ -54,7 +48,12 @@ const server = http.createServer((req, res) => {
         : handlers.notFound;
 
     // construct the data object to send to the handler
-    const data = { trimmedPath, method, headers, payload: buffer };
+    const data = {
+      trimmedPath,
+      method,
+      headers,
+      payload: helpers.parseJsonToObject(buffer),
+    };
 
     // route the request to the handler specified
     chosenHandler(data, (statusCode, payload) => {
@@ -85,5 +84,5 @@ server.listen(config.port, () =>
 
 // define request router
 const router = {
-  ping: handlers.sample,
+  users: handlers._users,
 };
