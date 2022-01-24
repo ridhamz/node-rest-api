@@ -10,6 +10,7 @@ import { StringDecoder } from "string_decoder";
 import { type } from "os";
 import config from "./config.js";
 import _data from "./lib/data.js";
+import handlers from "./lib/handler";
 
 // testing
 // @todo delete the file
@@ -81,21 +82,6 @@ const server = http.createServer((req, res) => {
 server.listen(config.port, () =>
   console.log(`server is lestening on port ${config.port}`)
 );
-
-//handlers
-let handlers = {};
-
-// ping handler
-handlers.ping = (data, callback) => {
-  //todo
-  callback(200);
-};
-
-// not found handler
-handlers.notFound = (data, callback) => {
-  // todo
-  callback(404);
-};
 
 // define request router
 const router = {

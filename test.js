@@ -1,20 +1,15 @@
-class User {
-  // define a private field
-  #name = "";
-  constructor(name) {
-    this.#name = name;
-  }
-
-  // define a private method
-  #sayHello() {
-    console.log(`Hello ${this.#name}`);
-  }
-
-  // define a public method
-  displayMessage() {
-    this.#sayHello();
-  }
+function createObject(x, y) {
+  return {
+    x,
+    y,
+    display() {
+      console.log(`x => ${x}, y => ${y}`);
+    },
+  };
 }
 
-const user = new User("ridha");
-user.displayMessage(); // Hello ridha
+const obj1 = createObject(2, 8);
+obj1.display(); // x => 2, y => 8
+
+const obj2 = createObject(6, 1);
+obj2.display(); // x => 6, y => 1
