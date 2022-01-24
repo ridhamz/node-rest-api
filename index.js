@@ -84,5 +84,5 @@ server.listen(config.port, () =>
 
 // define request router
 const router = {
-  users: handlers._users,
+  users: handlers.users,
 };
