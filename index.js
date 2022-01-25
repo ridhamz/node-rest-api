@@ -52,6 +52,7 @@ const server = http.createServer((req, res) => {
       trimmedPath,
       method,
       headers,
+      queryString: queryStringObject,
       payload: helpers.parseJsonToObject(buffer),
     };
 
@@ -60,19 +61,13 @@ const server = http.createServer((req, res) => {
       // use the status code called back by the handler, or default to 200
       statusCode = typeof statusCode === "number" ? statusCode : 200;
 
-      // use the payload called by the handler, or default to an empty object
-      payload = typeof payload === "object" ? payload : {};
-
-      // convert the payload to string
-      const payloadString = JSON.stringify(payload);
-
       // return the response
       res.setHeader("Content-Type", "application/json");
       res.writeHead(statusCode);
-      res.end(payloadString);
+      res.end(payload);
 
       // log the request path
-      console.log("payload:", statusCode, payloadString);
+      console.log("payload:", statusCode, payload);
     });
   });
 });
