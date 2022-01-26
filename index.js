@@ -72,7 +72,7 @@ const server = http.createServer((req, res) => {
   });
 });
 
-// srtart the server, and have it listen on port 5000
+// start the server, and have it listen on port 5000
 server.listen(config.port, () =>
   console.log(`server is lestening on port ${config.port}`)
 );
@@ -80,6 +80,5 @@ server.listen(config.port, () =>
 // define request router
 const router = {
   users: handlers.users,
+  tokens: handlers.tokens,
 };
-
-
