@@ -1,2 +1,2 @@
 # node-rest-api 
-Node.js rest API without any framework
+Build a node.js rest API without any framework.
