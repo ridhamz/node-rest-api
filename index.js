@@ -1,85 +1,26 @@
 /*
- * primary file for the PI
+ * Primary file for API
  *
  */
 
-// dependencies
-import http from "http";
-import url from "url";
-import { StringDecoder } from "string_decoder";
-import { type } from "os";
-import config from "./lib/config.js";
-import _data from "./lib/data.js";
-import handlers from "./lib/handler.js";
-import helpers from "./lib/helpers.js";
+// Dependencies
+import server from "./lib/server.js";
+import workers from "./lib/workers.js";
 
-// the server should respond to all requests with a string
-const server = http.createServer((req, res) => {
-  // get the url and parse it
-  const parsedUrl = url.parse(req.url, true);
+// Declare the app
+var app = {};
 
-  // get the path from the url
-  const path = parsedUrl.pathname;
-  const trimmedPath = path.replace(/^\/+|\/+$/g, "");
+// Init function
+app.init = function () {
+  // Start the server
+  server.init();
 
-  // get the query string as an object
-  const queryStringObject = parsedUrl.query;
-
-  // get the http method
-  const method = req.method.toLowerCase();
-
-  // get the headers s an object
-  const headers = req.headers;
-
-  // get the payload if any
-  const decoder = new StringDecoder("utf-8");
-  let buffer = "";
-  req.on("data", (data) => {
-    buffer += decoder.write(data);
-  });
-
-  req.on("end", () => {
-    buffer += decoder.end();
-
-    // choose the handler should the request should go to
-    const chosenHandler =
-      typeof router[trimmedPath] !== "undefined"
-        ? router[trimmedPath]
-        : handlers.notFound;
-
-    // construct the data object to send to the handler
-    const data = {
-      trimmedPath,
-      method,
-      headers,
-      queryString: queryStringObject,
-      payload: helpers.parseJsonToObject(buffer),
-    };
-
-    // route the request to the handler specified
-    chosenHandler(data, (statusCode, payload) => {
-      // use the status code called back by the handler, or default to 200
-      statusCode = typeof statusCode === "number" ? statusCode : 200;
-
-      // return the response
-      res.setHeader("Content-Type", "application/json");
-      res.writeHead(statusCode);
-      res.end(payload);
-
-      // log the request path
-      console.log("payload:", statusCode, payload);
-    });
-  });
-});
-
-// start the server, and have it listen on port 5000
-server.listen(config.port, () =>
-  console.log(`server is listen on port ${config.port}`)
-);
-
-// define request router
-const router = {
-  users: handlers.users,
-  tokens: handlers.tokens,
-  checks: handlers.checks,
+  // Start the workers
+  workers.init();
 };
+
+// Self executing
+app.init();
+
+// Export the app
+export default app;
